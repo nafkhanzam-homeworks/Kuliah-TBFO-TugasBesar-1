@@ -17,6 +17,22 @@ public class State {
         return String.format("<%d,%d,%d>", this.h, this.e, this.f);
     }
 
+    public void add(int h, int e, int f) {
+        
+    }
+
+    public void addHygiene(int h) {
+        this.add(h, 0, 0);
+    }
+
+    public void addEnergy(int e) {
+        this.add(0, e, 0);
+    }
+    
+    public void addFun(int f) {
+        this.add(0, 0, f);
+    }
+
     public static State parse(String str) {
         RuntimeException ex = new RuntimeException("Can't parse " + str + " to a State!");
         if (!str.startsWith("<") || !str.endsWith(">"))
