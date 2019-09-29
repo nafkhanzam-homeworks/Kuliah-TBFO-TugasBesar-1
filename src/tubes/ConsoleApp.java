@@ -76,8 +76,9 @@ public class ConsoleApp {
                         outln(actList[i]);
                         throw e;
                     }
+                    next = now;
                 }
-                list.add(next == null ? "∅" : ("\"" + next.toString() + "\""));
+                list.add("\"" + (next == null ? now.toString() : next.toString()) + "\"");
                 if (next == null)
                     continue;
                 if (!done.contains(next)) {
