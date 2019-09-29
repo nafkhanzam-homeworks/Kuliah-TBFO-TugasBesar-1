@@ -3,14 +3,14 @@ package tubes;
 import static tubes.Console.*;
 
 /**
- * Kelas State sebagai obyek state yang mempunyai properti <code>h</code> untuk nilai hygiene, <code>e</code> untuk nilai energy, dan <code>f</code> untuk nilai fun.
+ * Kelas State sebagai obyek state yang mempunyai properti <code>hygiene</code> untuk nilai hygiene, <code>energy</code> untuk nilai energy, dan <code>fun</code> untuk nilai fun.
  */
 public class State {
     public static final int MAX_VALUE = 15,
                             MIN_VALUE = 0;
     public static final RuntimeException NOT_VALID_EXCEPTION = new RuntimeException("Aksi tidak valid."),
                                          NOT_FOUND_EXCEPTION = new RuntimeException("Aksi tidak ada.");
-    public int h, e, f;
+    public int hygiene, energy, fun;
 
     /**
      * Konstruktor State dengan nilai hygiene=0, energy=10, fun=0.
@@ -22,10 +22,10 @@ public class State {
     /**
      * Konstruktor State.
      */
-    public State(int h, int e, int f) {
-        this.h = h;
-        this.e = e;
-        this.f = f;
+    public State(int hygiene, int energy, int fun) {
+        this.hygiene = hygiene;
+        this.energy = energy;
+        this.fun = fun;
     }
 
     /**
@@ -110,14 +110,14 @@ public class State {
      */
     @Override
     public String toString() {
-        return String.format("<%d,%d,%d>", this.h, this.e, this.f);
+        return String.format("<%d,%d,%d>", this.hygiene, this.energy, this.fun);
     }
 
     /**
      * Fungsi yang menghasilkan string output informasi status hygiene, energy, dan fun.
      */
     public String printString() {
-        return green + "Hygiene = " + yellow + this.h + green + "\nEnergy = " + yellow + this.e + green + "\nFun = " + yellow + this.f;
+        return green + "Hygiene = " + yellow + this.hygiene + green + "\nEnergy = " + yellow + this.energy + green + "\nFun = " + yellow + this.fun;
     }
 
     /**
@@ -131,31 +131,30 @@ public class State {
      * Fungsi yang menghasilkan true apabila nilai hygiene, energy, dan fun adalah 0.
      */
     public boolean isDead() {
-        return this.h == MIN_VALUE && this.e == MIN_VALUE && this.f == MIN_VALUE;
+        return this.hygiene == MIN_VALUE && this.energy == MIN_VALUE && this.fun == MIN_VALUE;
     }
 
     /**
      * Fungsi yang menghasilkan true apabila nilai hygiene, energy, dan fun adalah 15.
      */
     public boolean isFull() {
-        return this.h == MAX_VALUE && this.e == MAX_VALUE && this.f == MAX_VALUE;
+        return this.hygiene == MAX_VALUE && this.energy == MAX_VALUE && this.fun == MAX_VALUE;
     }
 
     /**
      * Fungsi untuk menambahkan nilai hygiene, energy, dan fun.
      */
     public State add(int h, int e, int f) {
-        if (this.h+h > MAX_VALUE || this.e+e > MAX_VALUE || this.f+f > MAX_VALUE ||
-            this.h+h < MIN_VALUE || this.e+e < MIN_VALUE || this.f+f < MIN_VALUE ||
+        if (this.hygiene+h > MAX_VALUE || this.energy+e > MAX_VALUE || this.fun+f > MAX_VALUE ||
+            this.hygiene+h < MIN_VALUE || this.energy+e < MIN_VALUE || this.fun+f < MIN_VALUE ||
             isFinalState())
             throw NOT_VALID_EXCEPTION;
-        return new State(this.h+h, this.e+e, this.f+f);
+        return new State(this.hygiene+h, this.energy+e, this.fun+f);
     }
 
-    public State clone() {
-        return new State(this.h, this.e, this.f);
-    }
-
+    /**
+     * Menghasilkan sebuah state dari sebuah string yang sesuai format.
+     */
     public static State parse(String str) {
         RuntimeException ex = new RuntimeException("Can't parse " + str + " to a State!");
         if (!str.startsWith("<") || !str.endsWith(">"))
@@ -171,16 +170,22 @@ public class State {
         }
     }
 
+    /**
+     * Menghasilkan bentuk hash state ini.
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + e;
-        result = prime * result + f;
-        result = prime * result + h;
+        result = prime * result + energy;
+        result = prime * result + fun;
+        result = prime * result + hygiene;
         return result;
     }
 
+    /**
+     * Menghasilkan true apabila komparasi kedua state sama.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -190,11 +195,11 @@ public class State {
         if (getClass() != obj.getClass())
             return false;
         State other = (State) obj;
-        if (e != other.e)
+        if (energy != other.energy)
             return false;
-        if (f != other.f)
+        if (fun != other.fun)
             return false;
-        if (h != other.h)
+        if (hygiene != other.hygiene)
             return false;
         return true;
     }

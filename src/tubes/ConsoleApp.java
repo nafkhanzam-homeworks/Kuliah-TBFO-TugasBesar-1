@@ -36,6 +36,9 @@ public class ConsoleApp {
         outln(yellow + "Final state! " + (state.isDead() ? red : green) + state);
     }
 
+    /**
+     * List aksi yang tersedia.
+     */
     private static String[] actList = {
         "Tidur Siang", "Tidur Malam",
         "Makan Hamburger", "Makan Pizza", "Makan Steak and Beans",
@@ -45,6 +48,10 @@ public class ConsoleApp {
         "Mandi", "Cuci Tangan", "Mendengarkan Musik di Radio",
         "Membaca Koran", "Membaca Novel"
     };
+
+    /**
+     * Prosedur untuk membuat tabel dfa di file csv.
+     */
     private static void gencsv() throws Exception {
         State q0 = new State();
         Queue<State> q = new LinkedList<>();
