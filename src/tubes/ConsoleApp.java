@@ -7,8 +7,7 @@ public class ConsoleApp {
         State state = new State();
         while (!state.isFinalState()) {
             outln(state.printString());
-            String input = line();
-            
+            state.act(line());
         }
         outln(state.isDead() ? red + "ded" : green + "win");
     }

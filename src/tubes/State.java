@@ -1,5 +1,7 @@
 package tubes;
 
+import tubes.Console.*;
+
 public class State {
     public static final int MAX_VALUE = 15,
                             MIN_VALUE = 0;
@@ -16,7 +18,100 @@ public class State {
     }
 
     public void act(String input) {
-        
+        try {
+            String arg = input.split(" ")[0];
+            String argNext = input.length() > arg.length()+1 ? input.substring(arg.length()+1) : "";
+            switch (arg) {
+                case "tidur":
+                    switch (argNext) {
+                        case "siang":
+                            
+                            break;
+                        case "malam":
+
+                            break;
+                        default:
+                            throw NOT_VALID_EXCEPTION;
+                    }
+                    break;
+                case "makan":
+                    switch (argNext) {
+                        case "hamburger":
+                            
+                            break;
+                        case "pizza":
+
+                            break;
+                        case "steak and beans":
+                            
+                            break;
+                        default:
+                            throw NOT_VALID_EXCEPTION;
+                    }
+                    break;
+                case "minum":
+                    switch (argNext) {
+                        case "air":
+
+                            break;
+                        case "kopi":
+
+                            break;
+                        case "jus":
+
+                            break;
+                        default:
+                            throw NOT_VALID_EXCEPTION;
+                    }
+                    break;
+                case "buang":
+                    switch (argNext) {
+                        case "air kecil":
+
+                            break;
+                        case "air besar":
+
+                            break;
+                        default:
+                            throw NOT_VALID_EXCEPTION;
+                    }
+                    break;
+                case "bersosialisasi ke kafe":
+                    
+                    break;
+                case "bermain media sosial":
+                    
+                    break;
+                case "bermain komputer":
+
+                    break;
+                case "mandi":
+
+                    break;
+                case "cuci tangan":
+                    
+                    break;
+                case "mendengarkan musik di radio":
+
+                    break;
+                case "membaca":
+                    switch (argNext) {
+                        case "koran":
+
+                            break;
+                        case "novel":
+                            this.
+                            break;
+                        default:
+                            throw NOT_VALID_EXCEPTION;
+                    }
+                    break;
+                default:
+                    throw NOT_VALID_EXCEPTION;
+            }
+        } catch (Exception _e) {
+            outln("Aksi tidak ada.");
+        }
     }
 
     @Override
