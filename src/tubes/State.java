@@ -8,8 +8,8 @@ import static tubes.Console.*;
 public class State {
     public static final int MAX_VALUE = 15,
                             MIN_VALUE = 0;
-    private static final RuntimeException NOT_VALID_EXCEPTION = new RuntimeException("Aksi tidak valid."),
-                                          NOT_FOUND_EXCEPTION = new RuntimeException("Aksi tidak ada.");
+    public static final RuntimeException NOT_VALID_EXCEPTION = new RuntimeException("Aksi tidak valid."),
+                                         NOT_FOUND_EXCEPTION = new RuntimeException("Aksi tidak ada.");
     public int h, e, f;
 
     /**
@@ -31,96 +31,77 @@ public class State {
     /**
      * Prosedur melakukan aksi dengan input aksi berbentuk string.
      */
-    public void act(String input) {
+    public State act(String input) {
+        input = input.toLowerCase();
         String arg = input.split(" ")[0];
         String argNext = input.length() > arg.length()+1 ? input.substring(arg.length()+1) : "";
         switch (arg) {
             case "tidur":
                 switch (argNext) {
                     case "siang":
-                        this.add(0, 10, 0);
-                        break;
+                        return this.add(0, 10, 0);
                     case "malam":
-                        this.add(0, 15, 0);
-                        break;
+                        return this.add(0, 15, 0);
                     default:
                         throw NOT_FOUND_EXCEPTION;
                 }
-                break;
             case "makan":
                 switch (argNext) {
                     case "hamburger":
-                        this.add(0, 5, 0);
-                        break;
+                        return this.add(0, 5, 0);
                     case "pizza":
-                        this.add(0, 10, 0);
-                        break;
+                        return this.add(0, 10, 0);
                     case "steak and beans":
-                        this.add(0, 15, 0);
-                        break;
+                        return this.add(0, 15, 0);
                     default:
                         throw NOT_FOUND_EXCEPTION;
                 }
-                break;
             case "minum":
                 switch (argNext) {
                     case "air":
-                        this.add(-5, 0, 0);
-                        break;
+                        return this.add(-5, 0, 0);
                     case "kopi":
-                        this.add(-10, 5, 0);
-                        break;
+                        return this.add(-10, 5, 0);
                     case "jus":
-                        this.add(-5, 10, 0);
-                        break;
+                        return this.add(-5, 10, 0);
                     default:
                         throw NOT_FOUND_EXCEPTION;
                 }
-                break;
             case "buang":
                 switch (argNext) {
                     case "air kecil":
-                        this.add(5, 0, 0);
-                        break;
+                        return this.add(5, 0, 0);
                     case "air besar":
-                        this.add(10, -5, 0);
-                        break;
+                        return this.add(10, -5, 0);
                     default:
                         throw NOT_FOUND_EXCEPTION;
                 }
-                break;
-            case "bersosialisasi ke kafe":
-                this.add(-5, -10, 15);
-                break;
-            case "bermain media sosial":
-                this.add(0, -10, 10);
-                break;
-            case "bermain komputer":
-                this.add(0, -10, 15);
-                break;
-            case "mandi":
-                this.add(15, -5, 0);
-                break;
-            case "cuci tangan":
-                this.add(5, 0, 0);
-                break;
-            case "mendengarkan musik di radio":
-                this.add(0, -5, 10);
-                break;
             case "membaca":
                 switch (argNext) {
                     case "koran":
-                        this.add(0, -5, 5);
-                        break;
+                        return this.add(0, -5, 5);
                     case "novel":
-                        this.add(0, -5, 10);
-                        break;
+                        return this.add(0, -5, 10);
                     default:
                         throw NOT_FOUND_EXCEPTION;
                 }
-                break;
             default:
-                throw NOT_FOUND_EXCEPTION;
+                switch (input) {
+                    case "bersosialisasi ke kafe":
+                        return this.add(-5, -10, 15);
+                    case "bermain media sosial":
+                        return this.add(0, -10, 10);
+                    case "bermain komputer":
+                        return this.add(0, -10, 15);
+                    case "mandi":
+                        return this.add(15, -5, 0);
+                    case "cuci tangan":
+                        return this.add(5, 0, 0);
+                    case "mendengarkan musik di radio":
+                        return this.add(0, -5, 10);
+                    default:
+                        throw NOT_FOUND_EXCEPTION;
+                }
         }
     }
 
@@ -163,13 +144,16 @@ public class State {
     /**
      * Fungsi untuk menambahkan nilai hygiene, energy, dan fun.
      */
-    public void add(int h, int e, int f) {
+    public State add(int h, int e, int f) {
         if (this.h+h > MAX_VALUE || this.e+e > MAX_VALUE || this.f+f > MAX_VALUE ||
-            this.h+h < MIN_VALUE || this.e+e < MIN_VALUE || this.f+f < MIN_VALUE)
+            this.h+h < MIN_VALUE || this.e+e < MIN_VALUE || this.f+f < MIN_VALUE ||
+            isFinalState())
             throw NOT_VALID_EXCEPTION;
-        this.h += h;
-        this.e += e;
-        this.f += f;
+        return new State(this.h+h, this.e+e, this.f+f);
+    }
+
+    public State clone() {
+        return new State(this.h, this.e, this.f);
     }
 
     public static State parse(String str) {
@@ -186,4 +170,33 @@ public class State {
             throw ex;
         }
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + e;
+        result = prime * result + f;
+        result = prime * result + h;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        State other = (State) obj;
+        if (e != other.e)
+            return false;
+        if (f != other.f)
+            return false;
+        if (h != other.h)
+            return false;
+        return true;
+    }
+
 }
