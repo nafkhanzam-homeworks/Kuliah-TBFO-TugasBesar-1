@@ -15,7 +15,7 @@ public class Console {
     /**
      * String warna untuk mewarnai output.
      */
-    public static String green = "", red = "", yellow = "", white = "";
+    public static String green = "", red = "", yellow = "", white = "", normal = "";
     
     /**
      * Status penggunaan warna.
@@ -35,7 +35,8 @@ public class Console {
         green = "\u001b[1;32m";
         red = "\u001b[1;31m";
         yellow = "\u001b[1;33m";
-        white = "\u001b[0;37m";
+        white = "\u001b[1;37m";
+        normal = "\u001b[0;37m";
     }
     
     /**
