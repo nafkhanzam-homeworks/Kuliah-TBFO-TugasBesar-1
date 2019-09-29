@@ -33,7 +33,7 @@ public class ConsoleApp {
             }
             outln();
         }
-        outln(yellow + "Final state! " + (state.isDead() ? red + "ded" : green + "win"));
+        outln(yellow + "Final state! " + (state.isDead() ? red : green) + state);
     }
 
     private static String[] actList = {
