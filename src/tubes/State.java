@@ -25,10 +25,10 @@ public class State {
                 case "tidur":
                     switch (argNext) {
                         case "siang":
-                            
+                            this.add(0, 10, 0);
                             break;
                         case "malam":
-
+                            this.add(0, 15, 0);
                             break;
                         default:
                             throw NOT_VALID_EXCEPTION;
@@ -37,13 +37,13 @@ public class State {
                 case "makan":
                     switch (argNext) {
                         case "hamburger":
-                            
+                            this.add(0, 5, 0);
                             break;
                         case "pizza":
-
+                            this.add(0, 10, 0);
                             break;
                         case "steak and beans":
-                            
+                            this.add(0, 15, 0);
                             break;
                         default:
                             throw NOT_VALID_EXCEPTION;
@@ -52,13 +52,13 @@ public class State {
                 case "minum":
                     switch (argNext) {
                         case "air":
-
+                            this.add(-5, 0, 0);
                             break;
                         case "kopi":
-
+                            this.add(-10, 5, 0);
                             break;
                         case "jus":
-
+                            this.add(-5, 10, 0);
                             break;
                         default:
                             throw NOT_VALID_EXCEPTION;
@@ -67,40 +67,40 @@ public class State {
                 case "buang":
                     switch (argNext) {
                         case "air kecil":
-
+                            this.add(5, 0, 0);
                             break;
                         case "air besar":
-
+                            this.add(10, -5, 0);
                             break;
                         default:
                             throw NOT_VALID_EXCEPTION;
                     }
                     break;
                 case "bersosialisasi ke kafe":
-                    
+                    this.add(-5, -10, 15);
                     break;
                 case "bermain media sosial":
-                    
+                    this.add(0, -10, 10);
                     break;
                 case "bermain komputer":
-
+                    this.add(0, -10, 15);
                     break;
                 case "mandi":
-
+                    this.add(15, -5, 0);
                     break;
                 case "cuci tangan":
-                    
+                    this.add(5, 0, 0);
                     break;
                 case "mendengarkan musik di radio":
-
+                    this.add(0, -5, 10);
                     break;
                 case "membaca":
                     switch (argNext) {
                         case "koran":
-
+                            this.add(0, -5, 5);
                             break;
                         case "novel":
-                            this.
+                            this.add(0, -5, 10);
                             break;
                         default:
                             throw NOT_VALID_EXCEPTION;
