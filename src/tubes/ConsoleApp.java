@@ -33,6 +33,7 @@ public class ConsoleApp {
             }
             outln();
         }
+        outln(state.printString());
         outln(yellow + "Final state! " + (state.isDead() ? red : green) + state);
     }
 
